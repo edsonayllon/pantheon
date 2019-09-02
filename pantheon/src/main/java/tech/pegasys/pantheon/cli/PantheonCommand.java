@@ -855,7 +855,7 @@ public class PantheonCommand implements DefaultCommandValues, Runnable {
       logger,
       commandLine,
       "--gpu-mining-enabled",
-      !isMiningEnabled,
+      !isGpuMiningEnabled,
       asList("--rpc-http-cors-origins", "--rpc-http-enabled"));  
 
     checkOptionDependencies(
