@@ -72,6 +72,7 @@ import tech.pegasys.pantheon.ethereum.jsonrpc.internal.methods.EthSendRawTransac
 import tech.pegasys.pantheon.ethereum.jsonrpc.internal.methods.EthSendTransaction;
 import tech.pegasys.pantheon.ethereum.jsonrpc.internal.methods.EthSyncing;
 import tech.pegasys.pantheon.ethereum.jsonrpc.internal.methods.EthUninstallFilter;
+import tech.pegasys.pantheon.ethereum.jsonrpc.internal.methods.EthSubmitLogin;
 import tech.pegasys.pantheon.ethereum.jsonrpc.internal.methods.JsonRpcMethod;
 import tech.pegasys.pantheon.ethereum.jsonrpc.internal.methods.NetEnode;
 import tech.pegasys.pantheon.ethereum.jsonrpc.internal.methods.NetListening;
@@ -260,6 +261,7 @@ public class JsonRpcMethodsFactory {
           new EthProtocolVersion(supportedCapabilities),
           new EthGasPrice(miningCoordinator),
           new EthGetWork(miningCoordinator),
+          new EthSubmitLogin(),
           new EthHashrate(miningCoordinator),
           new EthChainId(protocolSchedule.getChainId()));
     }

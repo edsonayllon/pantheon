@@ -79,6 +79,7 @@ public enum RpcMethod {
   ETH_SEND_RAW_TRANSACTION("eth_sendRawTransaction"),
   ETH_SEND_TRANSACTION("eth_sendTransaction"),
   ETH_SUBSCRIBE("eth_subscribe"),
+  ETH_SUBMIT_LOGIN("eth_submitLogin"),
   ETH_SYNCING("eth_syncing"),
   ETH_UNINSTALL_FILTER("eth_uninstallFilter"),
   ETH_UNSUBSCRIBE("eth_unsubscribe"),

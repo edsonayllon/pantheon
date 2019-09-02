@@ -408,7 +408,7 @@ public class JsonRpcHttpService {
       return EMPTY_RESPONSE;
     }
 
-    return Json.encodePrettily(response);
+    return Json.encode(response);
   }
 
   @SuppressWarnings("rawtypes")
