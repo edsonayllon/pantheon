@@ -525,6 +525,11 @@ public class PantheonCommand implements DefaultCommandValues, Runnable {
   private final Boolean isMiningEnabled = false;
 
   @Option(
+      names = {"--gpu-mining-enabled"},
+      description = "Set if node supports GPU mining software (default: ${DEFAULT-VALUE})")
+  private final Boolean isGpuMiningEnabled = false;
+
+  @Option(
       names = {"--miner-coinbase"},
       description =
           "Account to which mining rewards are paid. You must specify a valid coinbase if "
@@ -847,6 +852,13 @@ public class PantheonCommand implements DefaultCommandValues, Runnable {
         asList("--miner-coinbase", "--min-gas-price", "--miner-extra-data"));
 
     checkOptionDependencies(
+      logger,
+      commandLine,
+      "--gpu-mining-enabled",
+      !isMiningEnabled,
+      asList("--rpc-http-cors-origins", "--rpc-http-enabled"));  
+
+    checkOptionDependencies(
         logger,
         commandLine,
         "--sync-mode",
@@ -866,6 +878,12 @@ public class PantheonCommand implements DefaultCommandValues, Runnable {
           this.commandLine,
           "Unable to mine without a valid coinbase. Either disable mining (remove --miner-enabled)"
               + "or specify the beneficiary of mining (via --miner-coinbase <Address>)");
+    }
+    // noinspection ConstantConditions
+    if (isGpuMiningEnabled && isRpcHttpEnabled == null) {
+      throw new ParameterException(
+          this.commandLine,
+          "GPU mining requires RPC to be enabled, and CORS to be set to allow your miner's IP address");
     }
     return this;
   }
