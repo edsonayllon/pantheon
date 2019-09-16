@@ -14,12 +14,12 @@ If running in a development environment, the starting flags would be the followi
 ./bin/pantheon --network=dev --gpu-mining-enabled --rpc-http-enabled --rpc-http-cors-origins=all
 ```
 
-This starts Pantheon with JSON RPC available at localhost:8545.
+This starts Pantheon in a developer network with JSON RPC available at localhost:8545, with cors set to all IPs.
 
 Once initiated, you must wait until work is available before starting EthMiner. Once work is availabe, start EthMiner pointing to the JSON RPC endpoint. From the directory containing EthMiner:
 
 ```
-<EthMiner> -P http://<Your Ethereum Address>@127.0.0.1:8545
+<EthMiner> -P http://<Your Ethereum Address>@<Host>:<Port>
 ```
 
 An example on Windows would look like the following:
@@ -27,6 +27,8 @@ An example on Windows would look like the following:
 ```
 ethminer.exe -P http://0xBBAac64b4E4499aa40DB238FaA8Ac00BAc50811B@127.0.0.1:8545
 ```
+
+Other computers can mine to this Pantheon node if cors allows it, by setting the host to the IP of the computer/server running Pantheon, or the hostname of the server running Pantheon. 
 
 You can test when work is available using CURL in a command line:
 
