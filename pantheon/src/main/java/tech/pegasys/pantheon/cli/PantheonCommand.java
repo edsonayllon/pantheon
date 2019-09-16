@@ -947,7 +947,25 @@ public class PantheonCommand implements DefaultCommandValues, Runnable {
 
   public PantheonControllerBuilder<?> getControllerBuilder() {
     try {
-      return controllerBuilderFactory
+      if (isGpuMiningEnabled) {
+        return controllerBuilderFactory
+        .fromEthNetworkConfig(updateNetworkConfig(getNetwork()))
+        .synchronizerConfiguration(buildSyncConfig())
+        .ethProtocolConfiguration(ethProtocolOptions.toDomainObject())
+        .rocksDbConfiguration(buildRocksDbConfiguration())
+        .dataDirectory(dataDir())
+        .miningParameters(
+            new MiningParameters(Address.ZERO, minTransactionGasPrice, extraData, isGpuMiningEnabled))
+        .transactionPoolConfiguration(buildTransactionPoolConfiguration())
+        .nodePrivateKeyFile(nodePrivateKeyFile())
+        .metricsSystem(metricsSystem.get())
+        .privacyParameters(privacyParameters())
+        .clock(Clock.systemUTC())
+        .isRevertReasonEnabled(isRevertReasonEnabled)
+        .isPruningEnabled(isPruningEnabled)
+        .pruningConfiguration(buildPruningConfiguration());
+      } else {
+        return controllerBuilderFactory
         .fromEthNetworkConfig(updateNetworkConfig(getNetwork()))
         .synchronizerConfiguration(buildSyncConfig())
         .ethProtocolConfiguration(ethProtocolOptions.toDomainObject())
@@ -963,6 +981,7 @@ public class PantheonCommand implements DefaultCommandValues, Runnable {
         .isRevertReasonEnabled(isRevertReasonEnabled)
         .isPruningEnabled(isPruningEnabled)
         .pruningConfiguration(buildPruningConfiguration());
+      }
     } catch (final IOException e) {
       throw new ExecutionException(this.commandLine, "Invalid path", e);
     }
